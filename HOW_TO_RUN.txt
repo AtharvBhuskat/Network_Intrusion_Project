@@ -1,0 +1,114 @@
+============================================================
+  HOW TO RUN THIS PROJECT ON YOUR SYSTEM
+============================================================
+
+REQUIREMENTS
+------------
+- Python 3.10 or higher installed on your system
+- Internet connection (only for first-time package install)
+- Any modern browser (Chrome, Edge, Firefox)
+
+
+STEP 1: EXTRACT THE PROJECT
+----------------------------
+If you received a ZIP file, extract it to any location on your system.
+For example: C:\Projects\intrusion_storyline_builder
+
+
+STEP 2: OPEN CMD IN THE PROJECT FOLDER
+----------------------------------------
+Option A: Open File Explorer, navigate to the project folder,
+          click the address bar, type "cmd", press Enter.
+
+Option B: Open CMD and type:
+          cd "C:\path\to\intrusion_storyline_builder"
+
+
+STEP 3: INSTALL REQUIRED LIBRARIES
+------------------------------------
+Run this command (one time only):
+
+    pip install -r requirements.txt
+
+This installs: streamlit, pandas, numpy, scikit-learn, matplotlib, plotly, joblib
+
+If you get permission errors, try:
+    pip install --user -r requirements.txt
+
+
+STEP 4: RUN THE APP
+--------------------
+Run this command:
+
+    streamlit run app.py
+
+It will ask for your email:
+    Email:
+
+Just press ENTER (leave it blank).
+
+Your browser will open automatically at: http://localhost:8501
+The app is now running!
+
+
+STEP 5: USE THE APP
+--------------------
+- Click through the 6 tabs at the top
+- Use sidebar filters on the left to filter data
+- In Tab 3 (Suspicion Scanner): select a demo sample and click
+  "Scan for Intrusions" to see predictions
+- In Tab 4 (Storyline Builder): click "Build Storyline" to generate
+  incident reports
+
+
+TO STOP THE APP
+---------------
+Go back to the CMD window and press: Ctrl + C
+
+
+============================================================
+TROUBLESHOOTING
+============================================================
+
+PROBLEM: "streamlit is not recognized"
+FIX: Run: pip install streamlit
+     Or try: python -m streamlit run app.py
+
+PROBLEM: "ModuleNotFoundError: No module named 'sklearn'"
+FIX: Run: pip install scikit-learn
+
+PROBLEM: "ModuleNotFoundError: No module named 'plotly'"
+FIX: Run: pip install plotly
+
+PROBLEM: App runs but browser doesn't open
+FIX: Manually open your browser and go to http://localhost:8501
+
+PROBLEM: "No such file: models/anomaly_model.pkl"
+FIX: The models need to be generated first. Run these commands:
+     python src/data_prep.py
+     python src/train.py
+     Then run: streamlit run app.py
+
+PROBLEM: "No such file: data/processed/train.csv"
+FIX: Run: python src/data_prep.py
+     This will download and process the dataset.
+
+
+============================================================
+COMMANDS SUMMARY
+============================================================
+
+First time setup:
+    pip install -r requirements.txt
+
+If models are missing (not included in shared files):
+    python src/data_prep.py
+    python src/train.py
+
+Run the app:
+    streamlit run app.py
+
+Stop the app:
+    Ctrl + C
+
+============================================================

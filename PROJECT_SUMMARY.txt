@@ -1,0 +1,101 @@
+============================================================
+  INTRUSION STORYLINE BUILDER - PROJECT SUMMARY
+============================================================
+
+WHAT IS THIS PROJECT?
+---------------------
+This project is a Network Intrusion Detection System that does 3 things:
+1. Detects suspicious network connections
+2. Identifies the type of attack (if any)
+3. Generates a readable incident report (storyline)
+
+Think of it like a security guard for computer networks — it watches
+every connection and flags the suspicious ones.
+
+
+WHAT DATA DO WE USE?
+--------------------
+- Dataset: KDD Cup 1999 (from UCI Machine Learning Repository)
+- Source: https://archive.ics.uci.edu/dataset/130/kdd+cup+1999+data
+- It contains records of network connections between computers
+- Each row = one connection (e.g., your laptop connecting to a website)
+- Each connection has 41 measurements (duration, bytes sent, error rates, etc.)
+- Total: ~494,000 records (10% subset), cleaned to ~100,000 after removing duplicates
+- Split: 80,000 for training + 20,000 for testing
+- No missing values in the entire dataset
+
+
+WHAT ARE THE 5 ATTACK FAMILIES?
+-------------------------------
+1. NORMAL  - Safe, regular traffic (e.g., browsing a website)
+2. DOS     - Denial of Service (flooding a server to crash it)
+3. PROBE   - Scanning/reconnaissance (checking which doors are unlocked)
+4. R2L     - Remote to Local (hacking in from outside)
+5. U2R     - User to Root (trying to become admin after getting in)
+
+
+WHAT MODELS DO WE USE?
+----------------------
+Model 1: Isolation Forest (Anomaly Detection)
+- Purpose: Decides if a connection is suspicious or not
+- How it works: Learns what "normal" looks like, flags anything different
+- Output: Suspicion score + flagged yes/no
+
+Model 2: Logistic Regression (Classification)
+- Purpose: Predicts which attack family a suspicious connection belongs to
+- How it works: Learns patterns from labeled training data
+- Output: Predicted family + confidence percentage
+
+Model Results:
+- Anomaly Detector ROC-AUC: 0.68
+- Classifier Accuracy: 92%
+- Classifier Macro F1: 0.53
+
+
+WHAT ARE THE PROJECT FILES?
+---------------------------
+app.py              - The main Streamlit dashboard (what you see in browser)
+requirements.txt    - List of Python libraries needed
+README.md           - Project documentation
+
+src/data_prep.py    - Downloads data, cleans it, saves processed CSVs
+src/eda.py          - All chart and graph functions
+src/train.py        - Trains both models, saves .pkl files
+src/storyline.py    - Groups suspicious events into episodes, writes narratives
+
+data/processed/     - Contains train.csv (80K rows) and test.csv (20K rows)
+models/             - Contains 5 .pkl files (saved models and results)
+
+
+WHAT DOES THE APP SHOW? (6 TABS)
+---------------------------------
+Tab 1 - Overview:       Project explanation, dataset summary, model flow
+Tab 2 - Data Explorer:  Browse data, filter by protocol/service, see charts
+Tab 3 - Suspicion Scanner: Pick a connection, get instant verdict
+Tab 4 - Storyline Builder: Generate incident reports with episodes + narratives
+Tab 5 - Model Performance: Accuracy, confusion matrix, ROC curve
+Tab 6 - Explainability: Which features matter most, why model decided this
+
+
+WHAT MAKES THIS PROJECT UNIQUE?
+-------------------------------
+Most ML projects stop at "my model has 92% accuracy."
+This project goes further — it converts predictions into readable
+INCIDENT STORYLINES, like a real cybersecurity analyst would write.
+
+Example output:
+"Episode 3: A burst of 47 suspicious TCP connections on HTTP service
+with high error rates. The pattern suggests DoS activity with high
+confidence."
+
+
+TECHNOLOGIES USED
+-----------------
+- Python
+- Streamlit (web dashboard)
+- Scikit-learn (machine learning)
+- Pandas & NumPy (data processing)
+- Plotly (interactive charts)
+- Joblib (model saving/loading)
+
+============================================================
